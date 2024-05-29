@@ -49,17 +49,14 @@ sidebar:
 career-profile:
     title: Career Profile
     summary: |
-      Vaibhav is an experienced data scientist with a strong background 
-      in machine learning and deep learning. Currently, at Wi-Tronix, they 
-      develop models to analyze train cockpit and infrastructure footage. 
-      Previously, at Slytek, they implemented real-time video analysis and 
-      developed CI/CD pipelines. Their experience includes a machine learning 
-      internship at SemiCab, focusing on operational email analysis, and a 
-      role at Drishti Technologies, where they optimized Kubernetes 
-      pipelines and system latency. Their academic background includes a 
-      Master’s in AI from Arizona State University and dual degrees in
-      Biological Sciences and Electrical and Electronics Engineering 
-      from BITS Pilani. They have contributed to cancer research through 
+      Vaibhav is an accomplished data scientist with expertise in machine 
+      learning and deep learning. He works at Wi-Tronix, developing 
+      models to analyze train cockpit and infrastructure footage. 
+      Previously, he worked at Slytek, implementing real-time video 
+      analysis and developing CI/CD pipelines. Vaibhav holds a Master’s 
+      in AI from Arizona State University and dual degrees in Biological 
+      Sciences and Electrical and Electronics Engineering from BITS Pilani. 
+      He has also made significant contributions to cancer research through 
       internships and publications.
 education:
     title: Education
