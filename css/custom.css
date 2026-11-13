@@ -1,0 +1,45 @@
+/* Custom additions on top of the purged Bootstrap/Start Bootstrap theme */
+.skip-link{position:absolute;left:-999px;top:0;z-index:2000;background:#212529;color:#fff;padding:.5rem 1rem}
+.skip-link:focus{left:0}
+a:focus-visible,summary:focus-visible,.btn:focus-visible,.navbar-toggler:focus-visible{outline:3px solid #212529;outline-offset:2px}
+
+/* Side nav: stronger contrast than the theme default */
+#sideNav .navbar-nav .nav-item .nav-link{color:rgba(255,255,255,.88)}
+#sideNav .navbar-nav .nav-item .nav-link.active,#sideNav .navbar-nav .nav-item .nav-link:hover{color:#fff}
+
+/* Hero */
+.contact-line{display:flex;flex-wrap:wrap;gap:.25rem 1.5rem}
+.status{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem}
+.status-badge{display:inline-block;padding:.25rem .8rem;border-radius:2rem;background:#bd5d38;color:#fff;font-weight:800;font-size:.9rem}
+.hero-actions .icon{width:1em;height:1em;margin-right:.4rem;vertical-align:-.125em}
+.social-icons .social-icon{display:inline-flex;align-items:center;justify-content:center;line-height:1}
+.social-icons .social-icon .icon{width:1.5rem;height:1.5rem}
+
+/* Content */
+.resume-bullets{padding-left:1.1rem;margin-bottom:0}
+.resume-bullets li{margin-bottom:.4rem}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.skill-tag{padding:.25rem .75rem;border-radius:2rem;border:1px solid rgba(189,93,56,.4);background:rgba(189,93,56,.08);color:#8f4529;font-size:.9rem}
+details.earlier summary{cursor:pointer;color:#bd5d38;font-weight:800;font-size:1.1rem}
+details.earlier .earlier-list{margin-top:1.25rem}
+details.earlier .earlier-list li{margin-bottom:1.25rem}
+
+/* Print: a clean resume without the sidebar */
+@page{margin:12mm}
+@media print{
+  #sideNav,.skip-link,.hero-actions,.social-icons{display:none !important}
+  body{padding:0 !important}
+  .resume-section{min-height:auto !important;padding:1rem 0 !important;display:block !important}
+  .resume-section .resume-section-content{max-width:none !important}
+  .resume-section h1{font-size:2.5rem}
+  .resume-section h2{font-size:1.75rem;margin-bottom:1rem !important}
+  .resume-section .mb-5{margin-bottom:1rem !important}
+  .resume-section{break-inside:auto}
+  .d-flex{break-inside:avoid}
+  hr{display:none}
+  a{color:inherit;text-decoration:none}
+}
+
+/* Buttons (the purged theme drops Bootstrap's btn variables) */
+.btn-primary{color:#fff;background-color:#bd5d38;border-color:#bd5d38;font-weight:800}
+.btn-primary:hover,.btn-primary:focus{color:#fff;background-color:#a24e2d;border-color:#a24e2d}
