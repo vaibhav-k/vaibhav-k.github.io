@@ -60,7 +60,7 @@
       "label": "years of North American industry experience"
     },
     {
-      "value": "46,000+",
+      "value": "51,000+",
       "label": "PyPI downloads (BigNMF)"
     },
     {
@@ -203,7 +203,7 @@
       "org": "University of Tokyo, Lab of Functional Analysis in silico",
       "start": "May 2018",
       "end": "Jul 2018",
-      "text": "Applied non-negative matrix factorization to molecular and genomic datasets to identify anticancer drug relationships and tumour-suppressor genes; published the BigNMF package on PyPI (46,000+ downloads)."
+      "text": "Applied non-negative matrix factorization to molecular and genomic datasets to identify anticancer drug relationships and tumour-suppressor genes; published the BigNMF package on PyPI (51,000+ downloads)."
     },
     {
       "title": "Software Engineer Intern",
@@ -219,7 +219,7 @@
       "url": "https://pypi.org/project/bignmf/",
       "kind": "Python package on PyPI",
       "description": "Non-negative matrix factorization package built during research at the University of Tokyo and published on PyPI.",
-      "meta": "46,000+ downloads",
+      "meta": "51,000+ downloads",
       "tags": [
         "Python",
         "NMF",

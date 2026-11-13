@@ -131,7 +131,7 @@ _METRIC = re.compile(r"(?<![\w.])\d[\d,]*(?:\.\d+)?(?:%|\+|x\b)")
 
 def highlight_metrics(text: str) -> Markup:
     """
-    Escape text and wrap quantified results (5%, 46,000+, 3x) in a styled <strong>.
+    Escape text and wrap quantified results (5%, 51,000+, 3x) in a styled <strong>.
     """
     escaped = str(escape(text))
     return Markup(
