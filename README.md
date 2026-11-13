@@ -40,11 +40,10 @@ script, sitemap, size budgets, and WCAG AA contrast for both colour themes.
 
 ## Layout
 - `templates/` Jinja templates (`index.html.j2`, `404.html.j2`, `resume_pdf.html.j2`, `icons/`)
-- `css/custom.css` hand-written styles (light/dark tokens, timeline, print) and the `@font-face` rules
-- `css/styles.css` Bootstrap theme, purged to the classes the templates use
-- `src/styles.full.css` the full theme; re-purge with `npx purgecss --config purgecss.config.cjs` after adding new Bootstrap classes to a template
+- `css/custom.css` hand-written styles (light/dark tokens, layout) and the `@font-face` rules
+- `css/print.css` print stylesheet (loaded with `media="print"`): no nav or buttons, compact two-page resume
 - `js/scripts.js` nav, scroll spy, theme toggle, scroll reveal, print helper (no libraries)
-- `assets/fonts/` self-hosted Mulish and Saira Extra Condensed (SIL Open Font License)
+- `assets/fonts/` self-hosted Plus Jakarta Sans (SIL Open Font License)
 - `scripts/` image generation and the external link checker
 
 The site loads nothing from third parties and ships a strict Content-Security-Policy

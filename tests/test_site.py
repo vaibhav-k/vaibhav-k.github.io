@@ -1,5 +1,4 @@
 """Safety net for the resume site: run with `pytest -q`."""
-
 from __future__ import annotations
 
 import hashlib
@@ -9,6 +8,7 @@ import re
 import struct
 import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
+from pathlib import Path
 from urllib.parse import urlparse
 
 import pytest
@@ -17,9 +17,7 @@ import build
 
 HTML_PAGES = ("index.html", "404.html")
 # Anchored so DOIs and other digit runs inside identifiers do not match
-PHONE_RE = re.compile(
-    r"(?<![\w/])(?:\+?\d{1,3}[\s.-])?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}(?!\w)"
-)
+PHONE_RE = re.compile(r"(?<![\w/])(?:\+?\d{1,3}[\s.-])?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}(?!\w)")
 
 
 class Page(HTMLParser):
@@ -49,11 +47,7 @@ class Page(HTMLParser):
 
     def handle_endtag(self, tag):
         if tag == "script" and self._script is not None:
-            (
-                self.jsonld
-                if self._script["type"] == "application/ld+json"
-                else self.inline_scripts
-            ).append(self._script["text"])
+            (self.jsonld if self._script["type"] == "application/ld+json" else self.inline_scripts).append(self._script["text"])
             self._script = None
 
 
@@ -103,14 +97,10 @@ def test_no_phone_number_in_public_pages(root, pages, data):
         assert not PHONE_RE.search(text), f"phone-like number in {name}"
     private = root / "data" / "private.json"
     if private.exists():
-        digits = re.sub(
-            r"\D", "", json.loads(private.read_text(encoding="utf-8")).get("phone", "")
-        )
+        digits = re.sub(r"\D", "", json.loads(private.read_text(encoding="utf-8")).get("phone", ""))
         if len(digits) >= 7:
             for name, text in texts.items():
-                assert digits[-7:] not in re.sub(r"\D", "", text), (
-                    f"private phone digits found in {name}"
-                )
+                assert digits[-7:] not in re.sub(r"\D", "", text), f"private phone digits found in {name}"
 
 
 def test_private_file_is_gitignored(root):
@@ -163,7 +153,7 @@ def test_share_and_structured_data_images_exist(root, pages, data):
     prefix = data["site"]["url"]
     for url in (og, ld):
         assert url.startswith(prefix), url
-        assert (root / url[len(prefix) :]).exists(), f"missing image {url}"
+        assert (root / url[len(prefix):]).exists(), f"missing image {url}"
 
 
 def test_social_card_dimensions(root):
@@ -192,9 +182,7 @@ def test_csp_allows_only_the_known_inline_script(pages, name):
     policy = csp.group(1).replace("&#39;", "'")
     assert "unsafe-inline" not in policy and "unsafe-eval" not in policy
     assert len(page.inline_scripts) == 1
-    digest = base64.b64encode(
-        hashlib.sha256(page.inline_scripts[0].encode("utf-8")).digest()
-    ).decode("ascii")
+    digest = base64.b64encode(hashlib.sha256(page.inline_scripts[0].encode("utf-8")).digest()).decode("ascii")
     assert f"'sha256-{digest}'" in policy
 
 
@@ -205,9 +193,7 @@ def test_no_inline_svg_metadata(pages):
 
 def test_page_weight_budget(root, pages):
     assert len(pages["index.html"].encode("utf-8")) < 60_000
-    css_bytes = sum(
-        (root / "css" / f).stat().st_size for f in ("styles.css", "custom.css")
-    )
+    css_bytes = sum((root / "css" / f).stat().st_size for f in ("custom.css",))
     assert css_bytes < 60_000
 
 
@@ -229,7 +215,7 @@ def test_every_page_has_title_description_and_lang(pages):
 # ---------------------------------------------------------------- design tokens
 def _luminance(hex_color: str) -> float:
     h = hex_color.lstrip("#")
-    r, g, b = (int(h[i : i + 2], 16) / 255 for i in (0, 2, 4))
+    r, g, b = (int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
     f = lambda c: c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
     return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
 
@@ -240,11 +226,9 @@ def _ratio(a: str, b: str) -> float:
 
 
 def _blend(fg: str, bg: str, alpha: float) -> str:
-    f = [int(fg.lstrip("#")[i : i + 2], 16) for i in (0, 2, 4)]
-    b = [int(bg.lstrip("#")[i : i + 2], 16) for i in (0, 2, 4)]
-    return "#%02x%02x%02x" % tuple(
-        round(alpha * x + (1 - alpha) * y) for x, y in zip(f, b)
-    )
+    f = [int(fg.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    b = [int(bg.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    return "#%02x%02x%02x" % tuple(round(alpha * x + (1 - alpha) * y) for x, y in zip(f, b))
 
 
 def _tokens(css: str, selector: str) -> dict[str, str]:
@@ -253,36 +237,20 @@ def _tokens(css: str, selector: str) -> dict[str, str]:
     return dict(re.findall(r"--([\w-]+):\s*(#[0-9a-fA-F]{6})\s*;", block.group(1)))
 
 
-@pytest.mark.parametrize(
-    "theme,selector", [("light", ":root"), ("dark", ':root[data-theme="dark"]')]
-)
+@pytest.mark.parametrize("theme,selector", [("light", ":root"), ("dark", ':root[data-theme="dark"]')])
 def test_palette_meets_wcag_aa(root, theme, selector):
     css = (root / "css" / "custom.css").read_text(encoding="utf-8")
     t = _tokens(css, selector)
     pairs = [
-        ("text", "bg"),
-        ("text", "bg-alt"),
-        ("muted", "bg"),
-        ("muted", "bg-alt"),
-        ("heading", "bg"),
-        ("heading", "bg-alt"),
-        ("accent", "bg"),
-        ("accent", "bg-alt"),
-        ("on-accent", "accent"),
-        ("btn-fg", "btn-bg"),
-        ("btn-hover-fg", "btn-hover-bg"),
+        ("text", "bg"), ("text", "bg-alt"), ("muted", "bg"), ("muted", "bg-alt"),
+        ("heading", "bg"), ("heading", "bg-alt"), ("accent", "bg"), ("accent", "bg-alt"),
+        ("on-accent", "accent"), ("btn-fg", "btn-bg"), ("btn-hover-fg", "btn-hover-bg"),
     ]
     for fg, bg in pairs:
-        assert _ratio(t[fg], t[bg]) >= 4.5, (
-            f"{theme}: {fg} on {bg} = {_ratio(t[fg], t[bg]):.2f}"
-        )
-    # Sidebar, footer and nav links use white text on the sidebar colour
-    assert _ratio("#ffffff", t["sidebar"]) >= 4.5, f"{theme}: white on sidebar"
-    assert _ratio(_blend("#ffffff", t["sidebar"], 0.92), t["sidebar"]) >= 4.5, (
-        f"{theme}: nav links on sidebar"
-    )
+        assert _ratio(t[fg], t[bg]) >= 4.5, f"{theme}: {fg} on {bg} = {_ratio(t[fg], t[bg]):.2f}"
+    # The footer band uses white text on the band colour
+    assert _ratio("#ffffff", t["band"]) >= 4.5, f"{theme}: white on band"
+    assert _ratio(t["band"], "#ffffff") >= 4.5, f"{theme}: band on white (primary footer button)"
     # Tag text sits on a tinted background
     tint = {"light": 0.09, "dark": 0.12}[theme]
-    assert _ratio(t["accent"], _blend(t["accent"], t["bg-alt"], tint)) >= 4.5, (
-        f"{theme}: tag text"
-    )
+    assert _ratio(t["accent"], _blend(t["accent"], t["bg-alt"], tint)) >= 4.5, f"{theme}: tag text"

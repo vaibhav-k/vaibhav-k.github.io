@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""
-Regenerate the optimized image assets from their sources.
+"""Regenerate the optimized image assets from their sources.
 
     python scripts/make_images.py
 
@@ -10,7 +9,6 @@ Writes (into assets/img/):
 
 Needs Pillow, and Playwright + Chromium (the same ones `build.py --pdf` uses).
 """
-
 from __future__ import annotations
 
 import html
@@ -25,47 +23,41 @@ IMG = ROOT / "assets" / "img"
 
 
 def make_profile() -> Path:
-    """Generate the profile image and save it as a WebP file."""
     out = IMG / "profile-320.webp"
     with Image.open(IMG / "profile.jpg") as im:
-        im.convert("RGBA").resize((320, 320), Image.LANCZOS).save(
-            out, "WEBP", quality=82, method=6
-        )
+        im.convert("RGBA").resize((320, 320), Image.LANCZOS).save(out, "WEBP", quality=82, method=6)
     return out
 
 
 def make_social_card(data: dict) -> Path:
-    """Generate the social card image and save it as a PNG file."""
     from playwright.sync_api import sync_playwright
 
     person, stats = data["person"], data["stats"][:3]
     chips = "".join(
-        f'<div class="chip"><b>{html.escape(s["value"])}</b><span>{html.escape(s["label"])}</span></div>'
-        for s in stats
+        f'<div class="chip"><b>{html.escape(s["value"])}</b><span>{html.escape(s["label"])}</span></div>' for s in stats
     )
     page = f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-@font-face{{font-family:Mulish;font-weight:400;src:url(../fonts/mulish-latin-400-normal.woff2)}}
-@font-face{{font-family:Mulish;font-weight:800;src:url(../fonts/mulish-latin-800-normal.woff2)}}
-@font-face{{font-family:Saira;font-weight:700;src:url(../fonts/saira-extra-condensed-latin-700-normal.woff2)}}
+@font-face{{font-family:PJS;font-weight:400;src:url(../fonts/plus-jakarta-sans-latin-400-normal.woff2)}}
+@font-face{{font-family:PJS;font-weight:800;src:url(../fonts/plus-jakarta-sans-latin-800-normal.woff2)}}
 *{{box-sizing:border-box;margin:0}}
-body{{width:1200px;height:630px;display:flex;font-family:Mulish,Arial,sans-serif;background:#faf6f3;color:#25292d}}
-.side{{flex:none;width:380px;background:#9f4a2a;display:flex;align-items:center;justify-content:center}}
-.side img{{width:260px;height:260px;border-radius:50%;border:10px solid rgba(255,255,255,.35);background:#fff}}
+body{{width:1200px;height:630px;display:flex;font-family:PJS,Arial,sans-serif;background:#f7f3ea;color:#1d261c}}
+.side{{flex:none;width:380px;background:#2c4a2c;display:flex;align-items:center;justify-content:center}}
+.side img{{width:260px;height:260px;border-radius:58% 42% 55% 45% / 48% 54% 46% 52%;object-fit:cover;border:8px solid #f7f3ea;background:#fff}}
 .main{{flex:1;padding:70px 70px 60px;display:flex;flex-direction:column;justify-content:center}}
-h1{{font-family:Saira,Arial,sans-serif;font-weight:700;font-size:112px;line-height:.95;text-transform:uppercase}}
-h1 em{{font-style:normal;color:#9f4a2a;display:block}}
+h1{{font-weight:800;font-size:92px;line-height:1.02;letter-spacing:-2px}}
+h1 em{{font-style:normal;color:#355a35;display:block}}
 .title{{font-size:34px;font-weight:800;margin:26px 0 8px}}
-.sub{{font-size:26px;color:#5c636a}}
+.sub{{font-size:26px;color:#5a574d}}
 .chips{{display:flex;gap:16px;margin-top:38px}}
-.chip{{background:#fff;border:2px solid #cfc2b8;border-radius:14px;padding:14px 20px;display:flex;flex-direction:column;gap:4px}}
-.chip b{{font-family:Saira,Arial,sans-serif;font-size:42px;line-height:1;color:#9f4a2a}}
-.chip span{{font-size:18px;color:#5c636a;max-width:190px;line-height:1.25}}
+.chip{{background:#fcfaf4;border:2px solid #cfc7b3;border-radius:14px;padding:14px 20px;display:flex;flex-direction:column;gap:4px}}
+.chip b{{font-weight:800;font-size:42px;line-height:1;color:#355a35}}
+.chip span{{font-size:18px;color:#5a574d;max-width:190px;line-height:1.25}}
 </style></head><body>
 <div class="side"><img src="profile.jpg" alt=""></div>
 <div class="main">
-<h1>{html.escape(person["first"])}<em>{html.escape(person["last"])}</em></h1>
-<div class="title">{html.escape(person["job_title"])}</div>
-<div class="sub">{html.escape(person["location"])}</div>
+<h1>{html.escape(person['first'])}<em>{html.escape(person['last'])}</em></h1>
+<div class="title">{html.escape(person['job_title'])}</div>
+<div class="sub">{html.escape(person['location'])}</div>
 <div class="chips">{chips}</div>
 </div></body></html>"""
     tmp = IMG / ".social-card.tmp.html"

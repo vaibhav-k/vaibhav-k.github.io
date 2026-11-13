@@ -1,0 +1,37 @@
+/* Print stylesheet (linked with media="print"): a clean, ink-friendly resume with no UI chrome. */
+@page { margin: 14mm; }
+:root, :root[data-theme], :root:not([data-theme="light"]) {
+  color-scheme: light; --bg: #fff; --bg-alt: #fff; --text: #222; --muted: #444; --heading: #000;
+  --accent: #1f3d1f; --card: #fff; --line: #bbb; --accent-soft: transparent; --accent-line: #999;
+}
+html { font-size: 10pt; }
+body { background: #fff; color: #222; line-height: 1.45; }
+.site-nav, .theme-toggle, .skip-link, .hero-actions, .site-footer, .portrait, .focus-grid, .stats,
+.more-link, .navbar-toggler { display: none !important; }
+.hero::before { display: none; }
+.hero { padding: 0 0 .75rem; }
+.hero-grid { display: block; }
+h1 { font-size: 24pt; }
+.section { padding: .75rem 0; border-top: 1px solid #bbb; }
+.section-head { margin-bottom: .75rem; }
+.section-num { display: none; }
+.section h2 { font-size: 14pt; }
+.section h3.sub-head { margin: 1rem 0 .5rem; font-size: 11pt; }
+.js .reveal { opacity: 1 !important; transform: none !important; }
+.role { padding: .5rem 0; break-inside: avoid; gap: .2rem 1rem; grid-template-columns: 8.5rem 1fr; }
+.role-dates { font-size: 9pt; padding-top: .2rem; }
+.section-head, h2, h3 { break-after: avoid; }
+.role-org { font-size: 11.5pt; }
+.resume-bullets { margin-top: .4rem; }
+.resume-bullets li { margin-bottom: .2rem; }
+.metric { color: #000; }
+details.earlier > summary { list-style: none; }
+.project-grid { grid-template-columns: 1fr 1fr; gap: .6rem; }
+.project-card { break-inside: avoid; box-shadow: none; border-radius: .4rem; padding: .6rem .75rem; }
+.project-card h3 { font-size: 11pt; }
+.skill-group { padding: .4rem 0; }
+.skill-tag { border: 0; background: none; padding: 0; color: #222; font-size: 10pt; }
+.skill-tag:not(:last-child)::after { content: " ·"; }
+.skill-tags { gap: .25rem; }
+.cert-list { columns: 2; }
+a { color: inherit; text-decoration: none; }

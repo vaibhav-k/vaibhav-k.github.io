@@ -25,7 +25,7 @@ from pathlib import Path
 from typing import Any
 
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
-from markupsafe import Markup
+from markupsafe import Markup, escape
 
 ROOT = Path(__file__).resolve().parent
 DATA_FILE = ROOT / "data" / "resume.json"
@@ -126,6 +126,19 @@ def clean_svg(text: str) -> str:
     return _SVG_METADATA.sub("", text).strip()
 
 
+_METRIC = re.compile(r"(?<![\w.])\d[\d,]*(?:\.\d+)?(?:%|\+|x\b)")
+
+
+def highlight_metrics(text: str) -> Markup:
+    """
+    Escape text and wrap quantified results (5%, 46,000+, 3x) in a styled <strong>.
+    """
+    escaped = str(escape(text))
+    return Markup(
+        _METRIC.sub(lambda m: f'<strong class="metric">{m.group(0)}</strong>', escaped)
+    )
+
+
 def make_env() -> Environment:
     """
     Create and configure a Jinja2 environment for rendering templates.
@@ -151,6 +164,7 @@ def make_env() -> Environment:
         lstrip_blocks=True,
     )
     env.globals["icon"] = icon
+    env.filters["metrics"] = highlight_metrics
     return env
 
 

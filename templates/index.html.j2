@@ -19,47 +19,47 @@
 {% block body %}
     <body id="page-top">
         <a class="skip-link" href="#about">Skip to content</a>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">
-                <span class="d-block d-lg-none">{{ person.name }}</span>
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{ root }}assets/img/profile-320.webp" width="160" height="160" decoding="async" alt="{{ person.name }}" /></span>
-            </a>
-            <button class="navbar-toggler" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav">
-                    {% for item in nav %}
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#{{ item.id }}">{{ item.label }}</a></li>
-                    {% endfor %}
-                </ul>
-                <button type="button" class="theme-toggle" id="themeToggle" data-mode="light" aria-label="Switch to dark mode">{{ icon('moon') }}{{ icon('sun') }}<span class="theme-toggle-label">Dark mode</span></button>
-            </div>
-        </nav>
-        <!-- Page Content-->
-        <main class="container-fluid p-0">
-            <!-- About-->
-            <section class="resume-section" id="about">
-                <div class="resume-section-content">
-                    <h1 class="mb-0">
-                        {{ person.first }}
-                        <span class="text-primary">{{ person.last }}</span>
-                    </h1>
-                    <div class="subheading headline mb-3">{{ person.headline }}</div>
-                    <ul class="contact-line list-unstyled mb-3">
-                        <li>{{ person.location }}</li>
-                        <li><a href="mailto:{{ person.email }}">{{ person.email }}</a></li>
+        <!-- Top bar-->
+        <header class="site-nav" id="siteNav">
+            <div class="nav-inner">
+                <a class="brand" href="#page-top">{{ person.name }}</a>
+                <button class="navbar-toggler" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="toggler-bars"></span></button>
+                <nav class="nav-menu" id="navbarResponsive" aria-label="Sections">
+                    <ul class="nav-list">
+                        {% for item in nav %}
+                        <li><a class="nav-link" href="#{{ item.id }}">{{ item.label }}</a></li>
+                        {% endfor %}
                     </ul>
-                    <p class="status mb-4"><span class="status-badge">{{ status.badge }}</span> <span class="status-detail">{{ status.detail }}</span></p>
-                    <p class="lead mb-4">{{ summary_short }}</p>
-                    <div class="hero-actions mb-5">
-                        <a class="btn btn-primary" href="{{ root }}{{ site.pdf_path }}" download>{{ icon('download') }} Download PDF resume</a>
-                        <div class="social-icons">
-                            <a class="social-icon" href="{{ person.linkedin }}" aria-label="LinkedIn" rel="me noopener">{{ icon('linkedin') }}</a>
-                            <a class="social-icon" href="{{ person.github }}" aria-label="GitHub" rel="me noopener">{{ icon('github') }}</a>
-                            <a class="social-icon" href="mailto:{{ person.email }}" aria-label="Email">{{ icon('mail') }}</a>
+                    <button type="button" class="theme-toggle" id="themeToggle" data-mode="light" aria-label="Switch to dark mode">{{ icon('moon') }}{{ icon('sun') }}<span class="theme-toggle-label">Dark mode</span></button>
+                </nav>
+            </div>
+        </header>
+        <main>
+            <!-- About-->
+            <section class="section hero" id="about">
+                <div class="column">
+                    <div class="hero-grid">
+                        <div class="hero-text">
+                            <p class="status"><span class="status-badge">{{ status.badge }}</span> <span class="status-detail">{{ status.detail }}</span></p>
+                            <h1>{{ person.first }} <span class="surname">{{ person.last }}</span></h1>
+                            <p class="headline">{{ person.headline }}</p>
+                            <ul class="contact-line">
+                                <li>{{ person.location }}</li>
+                                <li><a href="mailto:{{ person.email }}">{{ person.email }}</a></li>
+                            </ul>
+                            <p class="lead">{{ summary_short }}</p>
+                            <div class="hero-actions">
+                                <a class="btn btn-primary" href="{{ root }}{{ site.pdf_path }}" download>{{ icon('download') }} Download PDF resume</a>
+                                <div class="social-icons">
+                                    <a class="social-icon" href="{{ person.linkedin }}" aria-label="LinkedIn" rel="me noopener">{{ icon('linkedin') }}</a>
+                                    <a class="social-icon" href="{{ person.github }}" aria-label="GitHub" rel="me noopener">{{ icon('github') }}</a>
+                                    <a class="social-icon" href="mailto:{{ person.email }}" aria-label="Email">{{ icon('mail') }}</a>
+                                </div>
+                            </div>
                         </div>
+                        <figure class="portrait"><img src="{{ root }}assets/img/profile-320.webp" width="320" height="320" decoding="async" alt="{{ person.name }}" /></figure>
                     </div>
-                    <dl class="stats mb-0">
+                    <dl class="stats">
                         {% for s in stats %}
                         <div class="stat"><dt>{{ s.value }}</dt><dd>{{ s.label }}</dd></div>
                         {% endfor %}
@@ -67,48 +67,46 @@
                 </div>
             </section>
             <!-- Experience-->
-            <section class="resume-section" id="experience">
-                <div class="resume-section-content">
-                    <h2 class="mb-4">Experience</h2>
-                    <div class="focus-grid mb-5">
+            <section class="section" id="experience">
+                <div class="column">
+                    <header class="section-head"><span class="section-num">01</span><h2>Experience</h2></header>
+                    <div class="focus-grid">
                         {% for f in focus_areas %}
-                        <div class="focus-card reveal">
+                        <div class="focus-item reveal">
                             <h3>{{ f.title }}</h3>
                             <p>{{ f.blurb }}</p>
-                            <p class="focus-links mb-0">
+                            <p class="focus-links">
                                 {% for r in f.role_refs %}<a href="#role-{{ r.id }}">{{ r.org }} {{ icon('arrow') }}</a>{% endfor %}
                             </p>
                         </div>
                         {% endfor %}
                     </div>
-                    <div class="timeline">
+                    <div class="roles">
                         {% for r in experience %}
                         <article class="role reveal" id="role-{{ r.id }}">
-                            <div class="role-head">
-                                <div>
-                                    <h3 class="role-org">{{ r.org }}</h3>
-                                    <div class="role-title">{{ r.title }} <span class="role-loc">· {{ r.location }}</span></div>
-                                </div>
-                                {{ dates(r.start, r.end) }}
+                            {{ dates(r.start, r.end) }}
+                            <div class="role-body">
+                                <h3 class="role-org">{{ r.org }}</h3>
+                                <div class="role-title">{{ r.title }} <span class="role-loc">· {{ r.location }}</span></div>
+                                <ul class="resume-bullets">
+                                    {% for b in r.bullets %}
+                                    <li{% if loop.index <= r.key_bullets %} class="key"{% endif %}>{{ b|metrics }}</li>
+                                    {% endfor %}
+                                </ul>
                             </div>
-                            <ul class="resume-bullets">
-                                {% for b in r.bullets %}
-                                <li{% if loop.index <= r.key_bullets %} class="key"{% endif %}>{{ b }}</li>
-                                {% endfor %}
-                            </ul>
                         </article>
                         {% endfor %}
                     </div>
-                    <details class="earlier mt-4">
+                    <details class="earlier">
                         <summary>Earlier experience &amp; research ({{ earlier_span }})</summary>
-                        <ul class="list-unstyled earlier-list mb-0">
+                        <ul class="earlier-list">
                             {% for e in earlier %}
-                            <li>
-                                <div class="earlier-head">
+                            <li class="role">
+                                {{ dates(e.start, e.end) }}
+                                <div class="role-body">
                                     <div><strong>{{ e.title }}</strong>, {{ e.org }}</div>
-                                    {{ dates(e.start, e.end) }}
+                                    <div class="earlier-text">{{ e.text }}</div>
                                 </div>
-                                <div class="earlier-text">{{ e.text }}</div>
                             </li>
                             {% endfor %}
                         </ul>
@@ -116,25 +114,25 @@
                 </div>
             </section>
             <!-- Projects & Publications-->
-            <section class="resume-section" id="projects">
-                <div class="resume-section-content">
-                    <h2 class="mb-4">Projects &amp; Publications</h2>
-                    <div class="project-grid mb-5">
+            <section class="section" id="projects">
+                <div class="column">
+                    <header class="section-head"><span class="section-num">02</span><h2>Projects &amp; Publications</h2></header>
+                    <div class="project-grid">
                         {% for p in projects %}
                         <a class="project-card reveal" href="{{ p.url }}" rel="noopener">
                             <span class="project-kind">{{ p.kind }}</span>
                             <h3>{{ p.name }}</h3>
                             <p>{{ p.description }}</p>
                             {% if p.meta %}<p class="project-meta">{{ p.meta }}</p>{% endif %}
-                            <ul class="skill-tags list-unstyled mb-0">
+                            <ul class="skill-tags">
                                 {% for t in p.tags %}<li class="skill-tag">{{ t }}</li>{% endfor %}
                             </ul>
                         </a>
                         {% endfor %}
                     </div>
-                    <p class="mb-5">More on <a href="{{ person.github }}" rel="me noopener">GitHub</a>.</p>
-                    <h3 class="mb-3">Publications</h3>
-                    <ul class="pub-list mb-0">
+                    <p class="more-link">More on <a href="{{ person.github }}" rel="me noopener">GitHub</a>.</p>
+                    <h3 class="sub-head">Publications</h3>
+                    <ul class="pub-list">
                         {% for p in publications %}
                         <li><a href="{{ p.url }}" target="_blank" rel="noopener">{{ p.title }}</a></li>
                         {% endfor %}
@@ -142,59 +140,61 @@
                 </div>
             </section>
             <!-- Skills-->
-            <section class="resume-section" id="skills">
-                <div class="resume-section-content">
-                    <h2 class="mb-4">Skills</h2>
+            <section class="section" id="skills">
+                <div class="column">
+                    <header class="section-head"><span class="section-num">03</span><h2>Skills</h2></header>
                     {% for g in skills %}
-                    <div class="subheading mb-2">{{ g.group }}</div>
-                    <ul class="skill-tags list-unstyled mb-4">
-                        {% for t in g['items'] %}<li class="skill-tag">{{ t }}</li>{% endfor %}
-                    </ul>
+                    <div class="skill-group">
+                        <h3 class="skill-group-name">{{ g.group }}</h3>
+                        <ul class="skill-tags">
+                            {% for t in g['items'] %}<li class="skill-tag">{{ t }}</li>{% endfor %}
+                        </ul>
+                    </div>
                     {% endfor %}
-                    <div class="subheading mb-2">Languages</div>
-                    <ul class="skill-tags list-unstyled mb-0">
-                        {% for t in languages %}<li class="skill-tag">{{ t }}</li>{% endfor %}
-                    </ul>
+                    <div class="skill-group">
+                        <h3 class="skill-group-name">Languages</h3>
+                        <ul class="skill-tags">
+                            {% for t in languages %}<li class="skill-tag">{{ t }}</li>{% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </section>
             <!-- Education & Certifications-->
-            <section class="resume-section" id="education">
-                <div class="resume-section-content">
-                    <h2 class="mb-4">Education</h2>
-                    <div class="edu-list mb-5">
+            <section class="section" id="education">
+                <div class="column">
+                    <header class="section-head"><span class="section-num">04</span><h2>Education</h2></header>
+                    <div class="roles">
                         {% for e in education %}
-                        <div class="edu reveal">
-                            <div class="role-head">
-                                <div>
-                                    <h3 class="role-org">{{ e.school }}</h3>
-                                    <div class="role-title">{{ e.degree }} <span class="role-loc">· {{ e.field }}</span></div>
-                                </div>
-                                {{ dates(e.start, e.end) }}
+                        <div class="role reveal">
+                            {{ dates(e.start, e.end) }}
+                            <div class="role-body">
+                                <h3 class="role-org">{{ e.school }}</h3>
+                                <div class="role-title">{{ e.degree }} <span class="role-loc">· {{ e.field }}</span></div>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
-                    <h3 class="mb-3">Certifications &amp; Professional Development</h3>
-                    <ul class="cert-list mb-0">
+                    <h3 class="sub-head">Certifications &amp; Professional Development</h3>
+                    <ul class="cert-list">
                         {% for c in certifications %}<li>{{ c }}</li>{% endfor %}
                     </ul>
                 </div>
             </section>
-            <!-- Contact footer-->
-            <footer class="site-footer" id="contact">
-                <div class="resume-section-content">
-                    <h2 class="mb-3">Let's talk</h2>
-                    <p class="mb-4">Hiring for data science, ML or applied AI? I'd like to hear about it.</p>
-                    <div class="footer-actions mb-4">
-                        <a class="btn btn-primary" href="mailto:{{ person.email }}">{{ icon('mail') }} Email me</a>
-                        <a class="btn btn-ghost" href="{{ root }}{{ site.pdf_path }}" download>{{ icon('download') }} Download PDF</a>
-                        <a class="btn btn-ghost" href="{{ person.linkedin }}" rel="me noopener">{{ icon('linkedin') }} LinkedIn</a>
-                        <a class="btn btn-ghost" href="{{ person.github }}" rel="me noopener">{{ icon('github') }} GitHub</a>
-                    </div>
-                    <p class="small mb-0">&copy; {{ year }} {{ person.name }}</p>
-                </div>
-            </footer>
         </main>
+        <!-- Contact footer-->
+        <footer class="site-footer" id="contact">
+            <div class="column">
+                <h2>Let's talk</h2>
+                <p>Hiring for data science, ML or applied AI? I'd like to hear about it.</p>
+                <div class="footer-actions">
+                    <a class="btn btn-primary" href="mailto:{{ person.email }}">{{ icon('mail') }} Email me</a>
+                    <a class="btn btn-ghost" href="{{ root }}{{ site.pdf_path }}" download>{{ icon('download') }} Download PDF</a>
+                    <a class="btn btn-ghost" href="{{ person.linkedin }}" rel="me noopener">{{ icon('linkedin') }} LinkedIn</a>
+                    <a class="btn btn-ghost" href="{{ person.github }}" rel="me noopener">{{ icon('github') }} GitHub</a>
+                </div>
+                <p class="copyright">&copy; {{ year }} {{ person.name }}</p>
+            </div>
+        </footer>
         <!-- Site JS (nav, scroll spy, theme toggle, reveal)-->
         <script src="{{ root }}js/scripts.js" defer></script>
     </body>
