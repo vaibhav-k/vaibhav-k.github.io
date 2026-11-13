@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}</script>
+        <title>{% block title %}{{ site.title }}{% endblock %}</title>
+        <meta name="description" content="{{ site.description }}" />
+        <meta name="author" content="{{ person.name }}" />
+        <meta name="color-scheme" content="light dark" />
+        <meta name="theme-color" content="#a8502f" />
+        {% block head_extra %}{% endblock %}
+        <link rel="icon" type="image/svg+xml" href="{{ root }}assets/img/favicon.svg" />
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ root }}assets/img/favicon-32.png" />
+        <link rel="icon" type="image/x-icon" href="{{ root }}assets/img/favicon.ico" />
+        <link rel="apple-touch-icon" href="{{ root }}assets/img/apple-touch-icon.png" />
+        <!-- Google fonts-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,800;1,400;1,800&amp;family=Saira+Extra+Condensed:wght@500;700&amp;display=swap" rel="stylesheet" />
+        <!-- Theme CSS (Bootstrap, purged to what the templates use) + custom styles-->
+        <link href="{{ root }}css/styles.css" rel="stylesheet" />
+        <link href="{{ root }}css/custom.css" rel="stylesheet" />
+    </head>
+    {% block body %}{% endblock %}
+</html>

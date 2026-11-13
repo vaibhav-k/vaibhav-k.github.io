@@ -1,0 +1,376 @@
+{
+  "site": {
+    "url": "https://vaibhav-k.github.io/",
+    "title": "Vaibhav Kulshrestha — Data Scientist & AI Engineer",
+    "description": "Resume of Vaibhav Kulshrestha: Data Scientist and AI Engineer with 5+ years of experience (3+ in North American industry) in production machine learning, computer vision, generative AI, RAG and agentic systems on Azure.",
+    "pdf_path": "assets/Vaibhav_Kulshrestha_Resume.pdf"
+  },
+  "person": {
+    "name": "Vaibhav Kulshrestha",
+    "first": "Vaibhav",
+    "last": "Kulshrestha",
+    "job_title": "Data Scientist & AI Engineer",
+    "headline": "Data Scientist | Machine Learning | Generative AI | Computer Vision",
+    "location": "Vancouver, BC, Canada",
+    "location_parts": {
+      "city": "Vancouver",
+      "region": "British Columbia",
+      "country": "CA"
+    },
+    "email": "vaibhav1kulshrestha@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/vaibhav-kulshrestha/",
+    "github": "https://github.com/vaibhav-k"
+  },
+  "status": {
+    "badge": "Open to relocation within Canada",
+    "detail": "Holds a Canadian closed (employer-specific) work permit"
+  },
+  "summary_short": "Data Scientist and AI Engineer with 5+ years in applied ML, including 3+ years in North American industry, building production systems: computer vision for railway safety, agentic and RAG systems on Azure, and NLP pipelines. Canadian work history includes a combination of industry experience and graduate research.",
+  "summary_full": "Data Scientist and AI Engineer with 5+ years of experience, including 3+ years in North American industry, spanning production machine learning, computer vision, deep learning, generative AI, agentic systems, and cloud engineering. Hands-on record of delivering ML systems for railway safety, video analytics, biomedical research, NLP, and enterprise automation, with strengths across Python, SQL, Azure, model pipelines, RAG, and productionization. Experienced in translating complex technical problems into scalable, reliable AI solutions. Canadian work history includes a combination of industry experience and graduate research.",
+  "nav": [
+    {
+      "id": "about",
+      "label": "About"
+    },
+    {
+      "id": "experience",
+      "label": "Experience"
+    },
+    {
+      "id": "projects",
+      "label": "Projects"
+    },
+    {
+      "id": "skills",
+      "label": "Skills"
+    },
+    {
+      "id": "education",
+      "label": "Education"
+    }
+  ],
+  "stats": [
+    {
+      "value": "5+",
+      "label": "years in applied ML & AI"
+    },
+    {
+      "value": "3+",
+      "label": "years of North American industry experience"
+    },
+    {
+      "value": "46,000+",
+      "label": "PyPI downloads (BigNMF)"
+    },
+    {
+      "value": "50%",
+      "label": "lower per-frame latency (Drishti)"
+    }
+  ],
+  "focus_areas": [
+    {
+      "title": "Agentic AI & RAG",
+      "blurb": "Azure-native agents, retrieval and workflow automation for enterprise delivery.",
+      "roles": [
+        "optimus"
+      ]
+    },
+    {
+      "title": "Computer vision",
+      "blurb": "Railway safety, inspection and real-time video analytics, from cloud to edge.",
+      "roles": [
+        "witronix",
+        "slytek"
+      ]
+    },
+    {
+      "title": "NLP & ML pipelines",
+      "blurb": "Email intent classification, transfer learning and Kubeflow pipelines.",
+      "roles": [
+        "semicab",
+        "drishti"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "id": "optimus",
+      "title": "Software Engineer",
+      "org": "Optimus Information Inc.",
+      "location": "Noida, India",
+      "start": "Jun 2026",
+      "end": "Present",
+      "key_bullets": 1,
+      "bullets": [
+        "Built an AI software architect that converts complex requirements into structured requirements, solution architectures, Azure recommendations, delivery plans, and technical designs, including architecture assessment against organizational standards.",
+        "Automated the end-to-end clinical workflow from CMS ingestion to final patient delivery, eliminating manual data entry and accelerating report turnaround times.",
+        "Designed and built an agentic ITSM platform on Azure DevOps using the Microsoft Agent Framework, RAG, enterprise knowledge, and workflow automation to accelerate service delivery."
+      ]
+    },
+    {
+      "id": "witronix",
+      "title": "Data Scientist",
+      "org": "Wi-Tronix",
+      "location": "Bolingbrook, IL",
+      "start": "Feb 2024",
+      "end": "Jun 2026",
+      "key_bullets": 2,
+      "bullets": [
+        "Led production computer vision systems for railway safety, including object detection for trespasser detection and track segmentation from moving locomotives.",
+        "Migrated YOLOv5-based detection models to YOLOv7, improving detection accuracy and real-time processing speed for driver-behaviour and railway-infrastructure monitoring.",
+        "Designed computer vision solutions for infrastructure inspection, crew-behaviour monitoring, and passenger-occupancy estimation under motion blur, changing viewpoints, and variable illumination.",
+        "Built scalable ML data pipelines and model workflows using Python and SQL, supporting repeatable training, evaluation, and deployment across multiple products.",
+        "Created reusable, versioned Python packages with testing and documentation, establishing engineering standards and improving maintainability and cross-team adoption."
+      ]
+    },
+    {
+      "id": "slytek",
+      "title": "Lead AI Engineer",
+      "org": "Slytek, Inc.",
+      "location": "Denver, CO",
+      "start": "Jun 2023",
+      "end": "Feb 2024",
+      "key_bullets": 1,
+      "bullets": [
+        "Integrated Raspberry Pi 4B and Camera Module 3 for real-time video analysis to monitor operator compliance with standard operating procedures.",
+        "Developed CI/CD for a C++ application using unit testing, Azure DevOps, and Docker to support repeatable integration and deployment.",
+        "Integrated Raspberry Pi 4 with ADE9000 to capture and analyze voltage, current, and power measurements for data monitoring."
+      ]
+    },
+    {
+      "id": "asu",
+      "title": "Graduate Services Assistant",
+      "org": "Arizona State University",
+      "location": "Tempe, AZ",
+      "start": "Mar 2022",
+      "end": "Dec 2022",
+      "key_bullets": 0,
+      "bullets": [
+        "Supported teaching and grading for graduate-level deep learning courses, including CSE 598: Introduction to Deep Learning and CSE 598: Intro to Deep Learning in Visual Computing."
+      ]
+    },
+    {
+      "id": "semicab",
+      "title": "Machine Learning Intern",
+      "org": "SemiCab",
+      "location": "Atlanta, GA",
+      "start": "May 2022",
+      "end": "Aug 2022",
+      "key_bullets": 1,
+      "bullets": [
+        "Built an NLP workflow to parse and classify operations emails by intent and extract relevant information; applied ULMFiT transfer learning, transformer-based zero-/few-shot learning, and DBSCAN clustering."
+      ]
+    },
+    {
+      "id": "drishti",
+      "title": "Machine Learning Engineer / Software Engineer Intern",
+      "org": "Drishti",
+      "location": "Bengaluru, India",
+      "start": "Jan 2021",
+      "end": "Aug 2021",
+      "key_bullets": 2,
+      "bullets": [
+        "Developed a Kubeflow pipeline using a Boundary Matching Network, increasing temporal proposal accuracy by 5%.",
+        "Optimized a streaming pipeline, cutting end-to-end per-frame latency by 50%, and migrated deep-learning model operations to a more efficient API."
+      ]
+    }
+  ],
+  "earlier": [
+    {
+      "title": "Master Thesis Project",
+      "org": "Princess Margaret Cancer Centre, Toronto",
+      "start": "Jun 2020",
+      "end": "Dec 2020",
+      "text": "Identified isoforms and isoform switches as candidate biomarkers for Acute Myeloid Leukemia (AML); cut analysis run time with parallel processing."
+    },
+    {
+      "title": "Student Research Assistant",
+      "org": "BITS Pilani, Goa",
+      "start": "Oct 2019",
+      "end": "Mar 2020",
+      "text": "Applied AI to dengue virus genomic data to predict infection severity; analyzed RNA secondary-structure prediction tools and built a tool addressing their shortcomings (two publications below)."
+    },
+    {
+      "title": "Software Engineer Intern",
+      "org": "Optimus Information Inc., Noida",
+      "start": "Aug 2019",
+      "end": "Oct 2019",
+      "text": "Applied classification and regression algorithms in Golang and developed two APIs for processing data stored in MySQL."
+    },
+    {
+      "title": "Summer Research Intern",
+      "org": "University of Tokyo, Lab of Functional Analysis in silico",
+      "start": "May 2018",
+      "end": "Jul 2018",
+      "text": "Applied non-negative matrix factorization to molecular and genomic datasets to identify anticancer drug relationships and tumour-suppressor genes; published the BigNMF package on PyPI (46,000+ downloads)."
+    },
+    {
+      "title": "Software Engineer Intern",
+      "org": "Prokure, New Delhi",
+      "start": "May 2017",
+      "end": "Jul 2017",
+      "text": "Automated third-party order delivery, built a web-based administration panel, and web-scraped e-commerce inventory into a MySQL database."
+    }
+  ],
+  "projects": [
+    {
+      "name": "BigNMF",
+      "url": "https://pypi.org/project/bignmf/",
+      "kind": "Python package on PyPI",
+      "description": "Non-negative matrix factorization package built during research at the University of Tokyo and published on PyPI.",
+      "meta": "46,000+ downloads",
+      "tags": [
+        "Python",
+        "NMF",
+        "Genomics"
+      ]
+    },
+    {
+      "name": "NMF University of Tokyo",
+      "url": "https://github.com/vaibhav-k/NMF-Univerity-of-Tokyo",
+      "kind": "GitHub repository",
+      "description": "Work from the summer 2018 research internship at the University of Tokyo.",
+      "meta": "",
+      "tags": [
+        "Python",
+        "NMF"
+      ]
+    },
+    {
+      "name": "Dengue Prediction ML",
+      "url": "https://github.com/vaibhav-k/Dengue-Prediction-ML",
+      "kind": "GitHub repository",
+      "description": "Dengue severity prediction using machine learning.",
+      "meta": "",
+      "tags": [
+        "Machine learning",
+        "Genomics"
+      ]
+    },
+    {
+      "name": "Visual Question Answering",
+      "url": "https://github.com/vaibhav-k/Visual-Question-Answering",
+      "kind": "GitHub repository",
+      "description": "Visual question answering on the CLEVR dataset using CNNs.",
+      "meta": "",
+      "tags": [
+        "Deep learning",
+        "CNN",
+        "Jupyter"
+      ]
+    },
+    {
+      "name": "Multi-Label Image Classification",
+      "url": "https://github.com/vaibhav-k/Multi-Label-Image-Classification",
+      "kind": "GitHub repository",
+      "description": "CNN architecture for image classification using Keras.",
+      "meta": "",
+      "tags": [
+        "Keras",
+        "CNN",
+        "Python"
+      ]
+    }
+  ],
+  "publications": [
+    {
+      "title": "Dengue outbreak and severity prediction: current methods and the future scope",
+      "url": "https://doi.org/10.1007/s13337-022-00767-x"
+    },
+    {
+      "title": "A Brief Review and Comparative Analysis of RNA Secondary Structure Prediction Tools",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40693431/"
+    }
+  ],
+  "skills": [
+    {
+      "group": "ML / AI",
+      "items": [
+        "Computer Vision",
+        "LLMs",
+        "RAG",
+        "Agentic AI",
+        "Deep Learning",
+        "Transformers",
+        "NLP",
+        "Time Series",
+        "Transfer Learning",
+        "Clustering"
+      ]
+    },
+    {
+      "group": "Programming",
+      "items": [
+        "Python",
+        "SQL",
+        "C++"
+      ]
+    },
+    {
+      "group": "Cloud / Platforms",
+      "items": [
+        "Microsoft Azure",
+        "Azure DevOps",
+        "Raspberry Pi / Edge AI"
+      ]
+    },
+    {
+      "group": "Data Engineering & MLOps",
+      "items": [
+        "ML Pipelines",
+        "Data Processing",
+        "Model Evaluation",
+        "MLOps",
+        "Kubeflow",
+        "Docker",
+        "CI/CD",
+        "MySQL"
+      ]
+    },
+    {
+      "group": "Visualization / Analytics",
+      "items": [
+        "Video Analytics",
+        "Operational Analytics",
+        "Data-driven Monitoring"
+      ]
+    }
+  ],
+  "languages": [
+    "English (Full Professional)",
+    "Hindi (Native/Bilingual)",
+    "French (Limited Working)",
+    "Japanese (Elementary)"
+  ],
+  "education": [
+    {
+      "school": "Arizona State University",
+      "degree": "Master of Science",
+      "field": "Robotics and Autonomous Systems - Artificial Intelligence track",
+      "start": "Aug 2021",
+      "end": "May 2023"
+    },
+    {
+      "school": "BITS Pilani",
+      "degree": "Master of Science",
+      "field": "Biological Sciences",
+      "start": "Aug 2015",
+      "end": "Aug 2021"
+    },
+    {
+      "school": "BITS Pilani",
+      "degree": "Bachelor of Engineering",
+      "field": "Electrical and Electronics Engineering",
+      "start": "Aug 2015",
+      "end": "Aug 2021"
+    }
+  ],
+  "certifications": [
+    "AZ-900",
+    "Microsoft Copilot: The Art of Prompt Writing",
+    "SAFe 6 course completion",
+    "Wi-Tronix and Rail Energy Management",
+    "Python (Basic) Certificate",
+    "CodeChef Foundation Level DSA Exam — Problem Solving (Basic)"
+  ]
+}

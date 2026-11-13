@@ -1,0 +1,8 @@
+# Private contact details (phone is only ever added to the PDF)
+data/private.json
+data/.resume_pdf.tmp.html
+
+# Python / tooling
+__pycache__/
+.venv/
+node_modules/

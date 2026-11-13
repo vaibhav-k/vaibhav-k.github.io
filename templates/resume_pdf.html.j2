@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>{{ person.name }} — Resume</title>
+<style>
+  @page { size: Letter; margin: 0.45in 0.55in; }
+  * { box-sizing: border-box; }
+  body { font: 9.3pt/1.32 "Liberation Sans", Arial, Helvetica, sans-serif; color: #1f2328; margin: 0; }
+  h1 { font-size: 20pt; letter-spacing: .06em; text-align: center; margin: 0; text-transform: uppercase; }
+  .headline { text-align: center; font-size: 9.4pt; letter-spacing: .07em; color: #444; text-transform: uppercase; margin-top: 2px; }
+  .contact { text-align: center; font-size: 8.3pt; margin-top: 4px; color: #333; }
+  .contact span + span::before { content: " | "; color: #999; }
+  .status { text-align: center; font-size: 8.8pt; margin-top: 2px; color: #8f4529; font-weight: bold; }
+  h2 { font-size: 9.8pt; letter-spacing: .09em; text-transform: uppercase; color: #8f4529; border-bottom: 1px solid #b9a79e; margin: 9px 0 4px; padding-bottom: 1px; }
+  p { margin: 0; }
+  .row { display: flex; justify-content: space-between; gap: 12px; }
+  .row .when { white-space: nowrap; color: #444; }
+  .role { margin-bottom: 5px; break-inside: avoid; }
+  .role .org { font-weight: bold; }
+  .role .meta { color: #444; }
+  ul { margin: 2px 0 0 14px; padding: 0; }
+  li { margin: 0 0 1px; }
+  .comp p { margin-bottom: 1px; }
+  .comp b { color: #1f2328; }
+  .earlier-item { margin-bottom: 3px; break-inside: avoid; }
+  .small { font-size: 8.8pt; }
+  a { color: inherit; text-decoration: none; }
+</style>
+</head>
+<body>
+  <h1>{{ person.name }}</h1>
+  <div class="headline">{{ person.headline }}</div>
+  <div class="contact">
+    <span>{{ person.location }}</span>{% if phone %}<span>{{ phone }}</span>{% endif %}<span>{{ person.email }}</span><span>{{ person.linkedin|replace('https://www.', '')|trim('/') }}</span><span>{{ person.github|replace('https://', '') }}</span>
+  </div>
+  <div class="status">{{ status.badge }} · {{ status.detail }}</div>
+
+  <h2>Professional Summary</h2>
+  <p>{{ summary_full }}</p>
+
+  <h2>Technical Competencies</h2>
+  <div class="comp">
+    {% for g in skills %}<p><b>{{ g.group }}:</b> {{ g['items']|join(', ') }}</p>{% endfor %}
+  </div>
+
+  <h2>Professional Experience</h2>
+  {% for r in experience %}
+  <div class="role">
+    <div class="row"><div><span class="org">{{ r.org }}</span> — {{ r.title }} <span class="meta">| {{ r.location }}</span></div><div class="when">{{ r.start }} – {{ r.end }}</div></div>
+    <ul>{% for b in r.bullets %}<li>{{ b }}</li>{% endfor %}</ul>
+  </div>
+  {% endfor %}
+
+  <h2>Selected Research &amp; Earlier Experience</h2>
+  {% for e in earlier %}
+  <div class="earlier-item">
+    <div class="row"><div><b>{{ e.org }}</b> — {{ e.title }}</div><div class="when">{{ e.start }} – {{ e.end }}</div></div>
+    <p class="small">{{ e.text }}</p>
+  </div>
+  {% endfor %}
+
+  <h2>Education</h2>
+  {% for e in education %}
+  <div class="row"><div><b>{{ e.school }}</b> — {{ e.degree }}, {{ e.field }}</div><div class="when">{{ e.start }} – {{ e.end }}</div></div>
+  {% endfor %}
+
+  <h2>Certifications &amp; Professional Development</h2>
+  <p>{{ certifications|join(' · ') }}</p>
+
+  <h2>Languages</h2>
+  <p>{{ languages|join('  |  ') }}</p>
+
+  <h2>Publications</h2>
+  <ul>
+    {% for p in publications %}<li>{{ p.title }} <span class="small">({{ p.url }})</span></li>{% endfor %}
+  </ul>
+</body>
+</html>
