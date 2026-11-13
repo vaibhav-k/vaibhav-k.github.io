@@ -149,7 +149,7 @@ def json_ld(data: dict) -> str:
         "name": person["name"],
         "jobTitle": person["job_title"],
         "url": site["url"],
-        "image": f"{site['url']}assets/img/profile.png",
+        "image": f"{site['url']}assets/img/profile.jpg",
         "sameAs": [person["linkedin"], person["github"]],
         "address": {
             "@type": "PostalAddress",
