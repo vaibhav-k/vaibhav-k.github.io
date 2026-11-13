@@ -38,7 +38,7 @@ log = logging.getLogger("build")
 THEME_BOOT_JS = (
     "document.documentElement.classList.add('js');"
     "try{var t=localStorage.getItem('theme');"
-    "if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}"
+    "if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t;}}catch(e){/* storage unavailable: keep default theme */}"
 )
 
 REQUIRED_KEYS = (
