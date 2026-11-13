@@ -9,33 +9,62 @@
 
 window.addEventListener('DOMContentLoaded', event => {
 
-    // Activate Bootstrap scrollspy on the main nav element
-    const sideNav = document.body.querySelector('#sideNav');
-    if (sideNav) {
-        bootstrap.ScrollSpy.getOrCreateInstance(document.body, {
-            target: '#sideNav',
-            rootMargin: '0px 0px -40%',
-        });
+    // Responsive nav: toggle the menu, close it after choosing a link or pressing Escape
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarMenu = document.getElementById('navbarResponsive');
+    const navLinks = Array.from(document.querySelectorAll('#navbarResponsive .nav-link'));
+    const setMenuOpen = (open) => {
+        navbarMenu.classList.toggle('show', open);
+        navbarToggler.setAttribute('aria-expanded', String(open));
     };
-
-    // Collapse responsive navbar when toggler is visible
-    const navbarToggler = document.body.querySelector('.navbar-toggler');
-    const responsiveNavItems = Array.from(
-        document.querySelectorAll('#navbarResponsive .nav-link')
-    );
-    responsiveNavItems.forEach(function (responsiveNavItem) {
-        responsiveNavItem.addEventListener('click', () => {
-            if (window.getComputedStyle(navbarToggler).display !== 'none') {
-                navbarToggler.click();
+    const togglerVisible = () => window.getComputedStyle(navbarToggler).display !== 'none';
+    navbarToggler.addEventListener('click', () => setMenuOpen(!navbarMenu.classList.contains('show')));
+    navLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+            if (togglerVisible()) {
+                setMenuOpen(false);
             }
         });
     });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && navbarMenu.classList.contains('show')) {
+            setMenuOpen(false);
+            navbarToggler.focus();
+        }
+    });
+
+    // Scroll spy: highlight the nav link of the section crossing the upper part of the viewport
+    const setActiveLink = (id) => {
+        navLinks.forEach((link) => {
+            const isActive = link.getAttribute('href') === `#${id}`;
+            link.classList.toggle('active', isActive);
+            if (isActive) {
+                link.setAttribute('aria-current', 'true');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        });
+    };
+    const sections = navLinks
+        .map((link) => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+    if ('IntersectionObserver' in window && sections.length > 0) {
+        const spy = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setActiveLink(entry.target.id);
+                }
+            });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+        sections.forEach((section) => spy.observe(section));
+    }
+    setActiveLink('about');
 
     // Light / dark toggle. The choice is remembered; without one the page follows the system setting.
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
-        const currentTheme = () => document.documentElement.getAttribute('data-theme') || (systemDark.matches ? 'dark' : 'light');
+        const currentTheme = () => document.documentElement.dataset.theme || (systemDark.matches ? 'dark' : 'light');
         const syncToggle = () => {
             const mode = currentTheme();
             const next = mode === 'dark' ? 'light' : 'dark';
@@ -45,7 +74,7 @@ window.addEventListener('DOMContentLoaded', event => {
         };
         themeToggle.addEventListener('click', () => {
             const next = currentTheme() === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
+            document.documentElement.dataset.theme = next;
             try {
                 localStorage.setItem('theme', next);
             } catch (error) {

@@ -7,6 +7,8 @@
         <title>Page not found — Vaibhav Kulshrestha</title>
         <meta name="description" content="Resume of Vaibhav Kulshrestha: Data Scientist and AI Engineer with 5+ years of experience (3+ in North American industry) in production machine learning, computer vision, generative AI, RAG and agentic systems on Azure." />
         <meta name="author" content="Vaibhav Kulshrestha" />
+        <meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; script-src &#39;self&#39; &#39;sha256-WKGofpRfXTejUs6QtxOnTCKyVTHOJkZ9V08pWWHtd3Y=&#39;; style-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39;; connect-src &#39;self&#39;; base-uri &#39;none&#39;; form-action &#39;none&#39;" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
         <meta name="color-scheme" content="light dark" />
         <meta name="theme-color" content="#a8502f" />
         <meta name="robots" content="noindex" />
@@ -14,10 +16,9 @@
         <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png" />
         <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
         <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
-        <!-- Google fonts-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,800;1,400;1,800&amp;family=Saira+Extra+Condensed:wght@500;700&amp;display=swap" rel="stylesheet" />
+        <!-- Self-hosted fonts (preload the two used above the fold)-->
+        <link rel="preload" href="/assets/fonts/mulish-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="/assets/fonts/saira-extra-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
         <!-- Theme CSS (Bootstrap, purged to what the templates use) + custom styles-->
         <link href="/css/styles.css" rel="stylesheet" />
         <link href="/css/custom.css" rel="stylesheet" />

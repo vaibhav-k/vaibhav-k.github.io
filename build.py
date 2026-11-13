@@ -4,6 +4,7 @@ Build the resume site (and optionally the PDF) from data/resume.json.
 
 Usage:
     python build.py            # index.html, 404.html, sitemap.xml
+    python build.py --check    # verify the committed output is current (used in CI)
     python build.py --pdf      # also render assets/<resume>.pdf (needs Playwright + Chromium)
 
 The phone number is deliberately NOT in resume.json. Put it in data/private.json
@@ -13,7 +14,9 @@ The phone number is deliberately NOT in resume.json. Put it in data/private.json
 from __future__ import annotations
 
 import argparse
+import base64
 import datetime as dt
+import hashlib
 import json
 import logging
 import re
@@ -30,6 +33,13 @@ PRIVATE_FILE = ROOT / "data" / "private.json"
 TEMPLATES = ROOT / "templates"
 
 log = logging.getLogger("build")
+
+# Runs before first paint: marks the page as JS-enabled and applies a saved light/dark choice.
+THEME_BOOT_JS = (
+    "document.documentElement.classList.add('js');"
+    "try{var t=localStorage.getItem('theme');"
+    "if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}"
+)
 
 REQUIRED_KEYS = (
     "site",
@@ -71,6 +81,13 @@ def validate(data: dict) -> None:
     missing = [k for k in REQUIRED_KEYS if k not in data]
     if missing:
         raise BuildError(f"resume.json is missing keys: {', '.join(missing)}")
+
+    try:
+        dt.date.fromisoformat(data["site"]["updated"])
+    except (KeyError, ValueError) as exc:
+        raise BuildError(
+            "site.updated must be an ISO date like 2026-11-13 (bump it when you edit the content)."
+        ) from exc
 
     role_ids = [r.get("id") for r in data["experience"]]
     if len(role_ids) != len(set(role_ids)) or None in role_ids:
@@ -196,15 +213,26 @@ def context(data: dict, *, root: str) -> dict[str, Any]:
     years = [int(e["start"][-4:]) for e in data["earlier"]] + [
         int(e["end"][-4:]) for e in data["earlier"]
     ]
-    ctx = {
+    updated = dt.date.fromisoformat(data["site"]["updated"])
+    boot_hash = base64.b64encode(
+        hashlib.sha256(THEME_BOOT_JS.encode("utf-8")).digest()
+    ).decode("ascii")
+    csp = (
+        "default-src 'none'; "
+        f"script-src 'self' 'sha256-{boot_hash}'; "
+        "style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; "
+        "base-uri 'none'; form-action 'none'"
+    )
+    return {
         **data,
         "focus_areas": focus,
         "root": root,
-        "year": dt.date.today().year,
+        "year": updated.year,
         "earlier_span": f"{min(years)} – {max(years)}",
         "jsonld": json_ld(data),
+        "theme_boot": THEME_BOOT_JS,
+        "csp": csp,
     }
-    return ctx
 
 
 def write(path: Path, text: str) -> None:
@@ -217,6 +245,23 @@ def write(path: Path, text: str) -> None:
     log.info("wrote %s (%d bytes)", path.relative_to(ROOT), path.stat().st_size)
 
 
+def render_pages(env: Environment, data: dict) -> dict[Path, str]:
+    """Render every generated site file in memory (deterministic: no clock, no randomness)."""
+    sitemap = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"  <url>\n    <loc>{data['site']['url']}</loc>\n"
+        f"    <lastmod>{data['site']['updated']}</lastmod>\n  </url>\n</urlset>\n"
+    )
+    index_html = env.get_template("index.html.j2").render(context(data, root=""))
+    not_found_html = env.get_template("404.html.j2").render(context(data, root="/"))
+    return {
+        ROOT / "index.html": index_html,
+        ROOT / "404.html": not_found_html,
+        ROOT / "sitemap.xml": sitemap,
+    }
+
+
 def build_site(env: Environment, data: dict) -> None:
     """
     Build the static site by rendering templates and writing output files.
@@ -225,21 +270,18 @@ def build_site(env: Environment, data: dict) -> None:
         env (Environment): The Jinja2 environment for rendering templates.
         data (dict): The site data used for rendering templates.
     """
-    write(
-        ROOT / "index.html",
-        env.get_template("index.html.j2").render(context(data, root="")),
-    )
-    write(
-        ROOT / "404.html",
-        env.get_template("404.html.j2").render(context(data, root="/")),
-    )
-    sitemap = (
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        f"  <url>\n    <loc>{data['site']['url']}</loc>\n"
-        f"    <lastmod>{dt.date.today().isoformat()}</lastmod>\n  </url>\n</urlset>\n"
-    )
-    write(ROOT / "sitemap.xml", sitemap)
+    for path, text in render_pages(env, data).items():
+        write(path, text)
+
+
+def stale_files(env: Environment, data: dict) -> list[Path]:
+    """Generated files whose committed content differs from a fresh build (line endings ignored)."""
+    norm = lambda t: t.replace("\r\n", "\n")
+    return [
+        path
+        for path, text in render_pages(env, data).items()
+        if not path.exists() or norm(path.read_text(encoding="utf-8")) != norm(text)
+    ]
 
 
 def build_pdf(env: Environment, data: dict, private: dict) -> None:
@@ -296,6 +338,11 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--pdf", action="store_true", help="also render the PDF resume")
     parser.add_argument("--pdf-only", action="store_true", help="render only the PDF")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="don't write anything; exit 1 if index.html/404.html/sitemap.xml are out of date",
+    )
     args = parser.parse_args(argv)
 
     logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -304,6 +351,15 @@ def main(argv: list[str] | None = None) -> int:
         validate(data)
         private = load_json(PRIVATE_FILE, required=False)
         env = make_env()
+        if args.check:
+            stale = stale_files(env, data)
+            for path in stale:
+                log.error(
+                    "out of date: %s (run `python build.py`)", path.relative_to(ROOT)
+                )
+            if not stale:
+                log.info("generated files are up to date")
+            return 1 if stale else 0
         if not args.pdf_only:
             build_site(env, data)
         if args.pdf or args.pdf_only:

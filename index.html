@@ -7,6 +7,8 @@
         <title>Vaibhav Kulshrestha — Data Scientist &amp; AI Engineer</title>
         <meta name="description" content="Resume of Vaibhav Kulshrestha: Data Scientist and AI Engineer with 5+ years of experience (3+ in North American industry) in production machine learning, computer vision, generative AI, RAG and agentic systems on Azure." />
         <meta name="author" content="Vaibhav Kulshrestha" />
+        <meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; script-src &#39;self&#39; &#39;sha256-WKGofpRfXTejUs6QtxOnTCKyVTHOJkZ9V08pWWHtd3Y=&#39;; style-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39;; connect-src &#39;self&#39;; base-uri &#39;none&#39;; form-action &#39;none&#39;" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
         <meta name="color-scheme" content="light dark" />
         <meta name="theme-color" content="#a8502f" />
         <link rel="canonical" href="https://vaibhav-k.github.io/" />
@@ -15,8 +17,11 @@
         <meta property="og:title" content="Vaibhav Kulshrestha — Data Scientist &amp; AI Engineer" />
         <meta property="og:description" content="Resume of Vaibhav Kulshrestha: Data Scientist and AI Engineer with 5+ years of experience (3+ in North American industry) in production machine learning, computer vision, generative AI, RAG and agentic systems on Azure." />
         <meta property="og:url" content="https://vaibhav-k.github.io/" />
-        <meta property="og:image" content="https://vaibhav-k.github.io/assets/img/profile.jpg" />
-        <meta name="twitter:card" content="summary" />
+        <meta property="og:image" content="https://vaibhav-k.github.io/assets/img/social-card.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Vaibhav Kulshrestha, Data Scientist &amp; AI Engineer" />
+        <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -61,10 +66,9 @@
         <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
         <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
-        <!-- Google fonts-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,800;1,400;1,800&amp;family=Saira+Extra+Condensed:wght@500;700&amp;display=swap" rel="stylesheet" />
+        <!-- Self-hosted fonts (preload the two used above the fold)-->
+        <link rel="preload" href="assets/fonts/mulish-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="assets/fonts/saira-extra-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
         <!-- Theme CSS (Bootstrap, purged to what the templates use) + custom styles-->
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/custom.css" rel="stylesheet" />
@@ -75,9 +79,9 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="#page-top">
                 <span class="d-block d-lg-none">Vaibhav Kulshrestha</span>
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" width="160" height="160" alt="Vaibhav Kulshrestha" /></span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile-320.webp" width="160" height="160" decoding="async" alt="Vaibhav Kulshrestha" /></span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <button class="navbar-toggler" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
@@ -150,7 +154,7 @@
                             <div class="role-head">
                                 <div>
                                     <h3 class="role-org">Optimus Information Inc.</h3>
-                                    <div class="role-title">Software Engineer <span class="role-loc">· Noida, India</span></div>
+                                    <div class="role-title">Software Engineer <span class="role-loc">· Vancouver, BC (remote)</span></div>
                                 </div>
                                 <time class="role-dates">Jun 2026 – Present</time>
                             </div>
@@ -396,9 +400,7 @@
                 </div>
             </footer>
         </main>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous" defer></script>
-        <!-- Core theme JS-->
+        <!-- Site JS (nav, scroll spy, theme toggle, reveal)-->
         <script src="js/scripts.js" defer></script>
     </body>
 </html>

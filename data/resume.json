@@ -3,7 +3,8 @@
     "url": "https://vaibhav-k.github.io/",
     "title": "Vaibhav Kulshrestha — Data Scientist & AI Engineer",
     "description": "Resume of Vaibhav Kulshrestha: Data Scientist and AI Engineer with 5+ years of experience (3+ in North American industry) in production machine learning, computer vision, generative AI, RAG and agentic systems on Azure.",
-    "pdf_path": "assets/Vaibhav_Kulshrestha_Resume.pdf"
+    "pdf_path": "assets/Vaibhav_Kulshrestha_Resume.pdf",
+    "updated": "2026-11-13"
   },
   "person": {
     "name": "Vaibhav Kulshrestha",
@@ -97,7 +98,7 @@
       "id": "optimus",
       "title": "Software Engineer",
       "org": "Optimus Information Inc.",
-      "location": "Noida, India",
+      "location": "Vancouver, BC (remote)",
       "start": "Jun 2026",
       "end": "Present",
       "key_bullets": 1,

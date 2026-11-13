@@ -1,0 +1,4 @@
+# Only for `python build.py --pdf` and `python scripts/make_images.py`
+# (after installing: playwright install chromium)
+playwright>=1.40
+pillow>=10
